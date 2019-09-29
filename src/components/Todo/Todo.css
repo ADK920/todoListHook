@@ -1,0 +1,11 @@
+.todo-list {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.item-added {
+    display: flex;
+    flex: 1;
+}
