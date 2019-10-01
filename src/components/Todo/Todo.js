@@ -7,6 +7,7 @@ class TodoList extends Component {
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
+        this.clearTodos = this.clearTodos.bind(this);
         this.onAdd = this.onAdd.bind(this);
         this.onComplete = this.onComplete.bind(this);
         this.onRemove = this.onRemove.bind(this);
@@ -19,6 +20,10 @@ class TodoList extends Component {
         this.setState({ item });
     }
 
+    clearTodos() {
+        this.setState({ items: [] });
+    }
+
     onAdd() {
         const items = [...this.state.items];
         items.push({ ...this.state.item });
@@ -29,7 +34,7 @@ class TodoList extends Component {
         const items = [...this.state.items];
         const item = items[index];
         item.completed = true;
-        this.setState({items});
+        this.setState({ items });
     }
 
     onRemove(e, index) {
@@ -48,6 +53,9 @@ class TodoList extends Component {
         return (
             <div className='todo-list'>
                 <h6>ToDo</h6>
+                <div>
+                    <button onClick={this.clearTodos}>Clear All</button>
+                </div>
                 <div className='item-adder'>
                     <input value={item.value} onChange={this.handleChange}></input>
                     <button onClick={this.onAdd}>Add Todo</button>
