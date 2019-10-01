@@ -4,3 +4,11 @@
     flex-direction: column;
     padding: 10px;
 }
+
+.complete-false {
+    color: red;
+}
+
+.complete-true {
+    color: green;
+}

@@ -27,7 +27,9 @@ class TodoList extends Component {
 
     onComplete(e, index) {
         const items = [...this.state.items];
-        console.log('complete');
+        const item = items[index];
+        item.completed = true;
+        this.setState({items});
     }
 
     onRemove(e, index) {
@@ -50,7 +52,7 @@ class TodoList extends Component {
                     <input value={item.value} onChange={this.handleChange}></input>
                     <button onClick={this.onAdd}>Add Todo</button>
                 </div>
-                <ItemList items={items} onRemove={this.onRemove}></ItemList>
+                <ItemList items={items} onComplete={this.onComplete} onRemove={this.onRemove}></ItemList>
             </div>
         );
     }
