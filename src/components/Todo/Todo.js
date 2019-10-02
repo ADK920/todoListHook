@@ -1,69 +1,59 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import ItemList from '../ItemList/ItemList';
 
 import './Todo.css';
 
-class TodoList extends Component {
-    constructor(props) {
-        super(props);
-        this.handleChange = this.handleChange.bind(this);
-        this.clearTodos = this.clearTodos.bind(this);
-        this.onAdd = this.onAdd.bind(this);
-        this.onComplete = this.onComplete.bind(this);
-        this.onRemove = this.onRemove.bind(this);
-        this.state = { item: this.newItem, items: [] };
-    }
-
-    handleChange(e) {
-        const item = { ...this.state.item };
-        item.value = e.target.value;
-        this.setState({ item });
-    }
-
-    clearTodos() {
-        this.setState({ items: [] });
-    }
-
-    onAdd() {
-        const items = [...this.state.items];
-        items.push({ ...this.state.item });
-        this.setState({ item: this.newItem, items });
-    }
-
-    onComplete(e, index) {
-        const items = [...this.state.items];
-        const item = items[index];
-        item.completed = true;
-        this.setState({ items });
-    }
-
-    onRemove(e, index) {
-        const items = this.state.items.slice();
-        items.splice(index, 1);
-        this.setState({ items });
-    }
-
-    get newItem() {
+function TodoList() {
+    const newItem = () => {
         return { value: '', completed: false };
     }
+    const [state, setState] = useState({ item: newItem(), items: [] });
 
-    render() {
-        const item = this.state.item;
-        const items = this.state.items;
-        return (
-            <div className='todo-list'>
-                <h6>ToDo</h6>
-                <div>
-                    <button onClick={this.clearTodos}>Clear All</button>
-                </div>
-                <div className='item-adder'>
-                    <input value={item.value} onChange={this.handleChange}></input>
-                    <button onClick={this.onAdd}>Add Todo</button>
-                </div>
-                <ItemList items={items} onComplete={this.onComplete} onRemove={this.onRemove}></ItemList>
+    const handleChange = evt => {
+        const item = { ...state.item };
+        item.value = evt.target.value;
+        setState({ ...state, item });
+    };
+
+    const onAdd = () => {
+        const items = [...state.items];
+        items.push(state.item);
+        setState({ ...state, items, item: newItem() });
+    };
+
+    const onComplete = (e, index) => {
+        const items = [...state.items];
+        const item = { ...items[index] };
+        item.completed = true;
+        items[index] = item;
+        setState({ ...state, items });
+    };
+
+    const onRemove = (e, index) => {
+        const items = [...state.items];
+        items.splice(index, 1);
+        setState({ ...state, items });
+    };
+
+    const clearTodos = evt => {
+        setState({ ...state, items: [] });
+    };
+    const item = state.item;
+    const items = state.items;
+    return (
+        <div className='todo-list'>
+            <h6>ToDo</h6>
+            <span>{item.value}</span>
+            <div>
+                <button onClick={clearTodos}>Clear All</button>
             </div>
-        );
-    }
+            <div className='item-adder'>
+                <input value={item.value} onChange={handleChange}></input>
+                <button onClick={onAdd} disabled={item.value.length === 0}>Add Todo</button>
+            </div>
+            <ItemList items={items} onComplete={onComplete} onRemove={onRemove}></ItemList>
+        </div>
+    );
 }
 
 export default TodoList;
