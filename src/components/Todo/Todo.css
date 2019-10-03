@@ -1,11 +1,14 @@
 .todo-list {
     display: flex;
     flex: 1;
+    max-width: 400px;
     flex-direction: column;
     padding: 10px;
+    overflow: hidden;
 }
 
-.item-added {
+.item-adder {
     display: flex;
     flex: 1;
+    margin-bottom:5px;
 }
