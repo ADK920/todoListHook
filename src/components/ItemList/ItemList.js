@@ -1,19 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './ItemList.css';
+import Item from '../Item/Item';
 
-class ItemList extends Component {
-    render() {
-        const items = this.props.items;
-        return (<div className="item-list">
-            <div className="list-wrapper">
-                {items.map((item, index) =>
-                    <div className={`list-item complete-${item.completed}`}  key={index}>{item.value}
-                        <button onClick={e => this.props.onRemove(e, index)}>Remove</button>
-                        <button onClick={e => this.props.onComplete(e, index)}>Complete</button>
-                    </div>)}
-            </div>
-        </div>)
-    }
+function ItemList(props) {
+    const items = props.items;
+    return (<div className="item-list">
+        <div className="list-wrapper">
+            {items.map((item, index) =>
+                <Item item={item} index={index} onComplete={props.onComplete} onRemove={props.onRemove}></Item>
+            )}
+        </div>
+    </div>)
 }
 
 export default ItemList;
