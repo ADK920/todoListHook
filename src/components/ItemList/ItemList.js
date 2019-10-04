@@ -7,7 +7,7 @@ function ItemList(props) {
     return (<div className="item-list">
         <div className="list-wrapper">
             {items.map((item, index) =>
-                <Item item={item} index={index} onComplete={props.onComplete} onRemove={props.onRemove}></Item>
+                <Item key={index} item={item} index={index} onComplete={props.onComplete} onRemove={props.onRemove}></Item>
             )}
         </div>
     </div>)

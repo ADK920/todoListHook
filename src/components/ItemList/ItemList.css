@@ -15,3 +15,13 @@
     color: green;
     text-decoration: line-through;
 }
+
+.list-item {
+    display: flex;
+    flex: 1;
+}
+
+.list-item-description {
+    display:flex;
+    flex: 1 1 400px;
+}
