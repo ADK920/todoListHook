@@ -26,9 +26,9 @@ function TodoList() {
 
     const onComplete = (e, index) => {
         const completeItems = [...items];
-        const completedItem = { ...items[index] };
+        const completedItem = { ...completeItems[index] };
         completedItem.completed = true;
-        completeItems[index] = item;
+        completeItems[index] = completedItem;
         setItems(completeItems);
     };
 
