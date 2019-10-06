@@ -5,11 +5,15 @@ import './Todo.css';
 
 function TodoList() {
     const newItem = () => {
-        return { userId: 0, id: 2000, title: '', completed: false };
+        return { userId: 0, id: -1, title: '', completed: false };
     }
-
     const [item, setItem] = useState(newItem());
     const [items, setItems] = useState([]);
+    const [activeList, setActiveList] = useState(1);
+
+    useEffect(() => {
+        getTodos()
+    }, [activeList]);
 
     const handleChange = evt => {
         const updateItem = { ...item };
@@ -20,7 +24,8 @@ function TodoList() {
     const onAdd = () => {
         const addItems = [...items];
         addItems.push(item);
-        setItems(items);
+
+        setItems(addItems);
         setItem(newItem());
     };
 
@@ -50,12 +55,21 @@ function TodoList() {
 
     const content = (
         <div className='todo-list'>
-            <h6>ToDo</h6>
+            <h5>ToDo</h5>
             <div>
                 <button onClick={getTodos}>Get more Todo!</button>
             </div>
             <div>
                 <button onClick={clearTodos}>Clear All</button>
+            </div>
+            <div>Active List {activeList}</div>
+            <div className="list-setter">
+                <div>
+                    <button onClick={() => setActiveList(1)}>List 1</button>
+                </div>
+                <div>
+                    <button onClick={() => setActiveList(2)}>List 2</button>
+                </div>
             </div>
             <div className='item-adder'>
                 <input placeholder="Enter ToDo" value={item.title} onChange={handleChange}></input>

@@ -6,6 +6,10 @@
     overflow: hidden;
 }
 
+.list-setter {
+    display: flex;
+}
+
 .item-adder {
     display: flex;
     flex: 1;
